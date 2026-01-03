@@ -57,8 +57,9 @@ commandInput.addEventListener("keydown", (e) => {
         setTimeout(() => {
           print("FRAGMENT FOUND");
           print("NETHER COORDINATES:");
-          print("X: 324");
-          print("Z: -118");
+          print("X: 599");
+          print("Y: 116");
+          print("Z: 619");
         }, 800);
         break;
 
