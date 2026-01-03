@@ -1,0 +1,29 @@
+body {
+  background: black;
+  color: #00ff88;
+  font-family: monospace;
+  margin: 0;
+  padding: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+#boot, #output {
+  white-space: pre-line;
+}
+
+#input-line {
+  display: flex;
+  gap: 8px;
+}
+
+input {
+  background: black;
+  border: none;
+  color: #00ff88;
+  font-family: monospace;
+  outline: none;
+  width: 100%;
+}
