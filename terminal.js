@@ -1,3 +1,4 @@
+const correctPassword = "poweritem"; // Password to unlock terminal
 const bootText = [
   "BOOTING MEMORY NODE...",
   "CHECKSUM FAILED",
@@ -5,9 +6,6 @@ const bootText = [
   "READY",
   ""
 ];
-
-const correctPassword = "poweritem"; // ← password from riddle
-let attempts = 0;
 
 const bootDiv = document.getElementById("boot");
 const loginDiv = document.getElementById("login");
@@ -17,6 +15,7 @@ const outputDiv = document.getElementById("output");
 const passwordInput = document.getElementById("passwordInput");
 const commandInput = document.getElementById("commandInput");
 
+let attempts = 0;
 let i = 0;
 
 // Boot sequence
@@ -31,19 +30,18 @@ const bootInterval = setInterval(() => {
   }
 }, 500);
 
-// Password handling
+// Handle password input
 passwordInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
-    if (passwordInput.value === correctPassword) {
+    if (passwordInput.value.trim() === correctPassword) {
       loginDiv.classList.add("hidden");
       terminalDiv.classList.remove("hidden");
-      print("ACCESS GRANTED\n");
+      print("ACCESS GRANTED\nType 'help' to see available commands.\n");
       commandInput.focus();
     } else {
       attempts++;
       print("ACCESS DENIED\n");
       passwordInput.value = "";
-
       if (attempts >= 5) {
         print("TRACE ACTIVE. CONNECTION LOCKED.\n");
         passwordInput.disabled = true;
@@ -52,7 +50,7 @@ passwordInput.addEventListener("keydown", (e) => {
   }
 });
 
-// Terminal output
+// Print to terminal
 function print(text) {
   outputDiv.textContent += text;
   outputDiv.scrollTop = outputDiv.scrollHeight;
@@ -66,10 +64,10 @@ commandInput.addEventListener("keydown", (e) => {
     commandInput.value = "";
 
     if (cmd === "help") {
-      print("AVAILABLE COMMANDS:\n- help\n\n");
+      print("AVAILABLE COMMANDS:\n- help\n- cords\n\n");
     } 
-    else if (cmd === "poweritem") {
-      runPowerItem();
+    else if (cmd === "cords") {
+      runCords();
     } 
     else {
       print("UNKNOWN COMMAND\n\n");
@@ -77,13 +75,12 @@ commandInput.addEventListener("keydown", (e) => {
   }
 });
 
-// poweritem command
-function runPowerItem() {
+// Show Nether coordinates
+function runCords() {
   const logs = [
-    "SCANNING MEMORY...",
-    "FRAGMENT FOUND",
-    "RELEASING PIECE...",
-    "EXPORTING AUDIO FRAGMENT...\n"
+    "SCANNING NODE...",
+    "FRAGMENT FOUND...",
+    "RETRIEVING COORDINATES...\n"
   ];
 
   let index = 0;
@@ -93,19 +90,7 @@ function runPowerItem() {
       index++;
     } else {
       clearInterval(logInterval);
-      triggerDownload();
+      print("NETHER COORDINATES REVEALED: X=324 Z=-118\n\n");
     }
   }, 700);
-}
-
-// Sound file trigger
-function triggerDownload() {
-  const link = document.createElement("a");
-  link.href = "sound/fragment.wav";
-  link.download = "fragment.wav";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-
-  print("DONE.\n");
 }
