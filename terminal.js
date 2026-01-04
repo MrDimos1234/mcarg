@@ -1,7 +1,7 @@
-const passwordInput = document.getElementById("password");
-const commandInput = document.getElementById("command");
+const passwordInput = document.getElementById("passwordInput");
+const commandInput = document.getElementById("commandInput");
 const loginDiv = document.getElementById("login");
-const consoleDiv = document.getElementById("console");
+const consoleDiv = document.getElementById("terminal");
 const output = document.getElementById("output");
 
 let attempts = 0;
@@ -49,10 +49,10 @@ commandInput.addEventListener("keydown", (e) => {
       case "help":
         print("AVAILABLE COMMANDS:");
         print("- help");
-        print("- cords");
+        print("- nether");
         break;
 
-      case "cords":
+      case "nether":
         print("SCANNING NODE...");
         setTimeout(() => {
           print("FRAGMENT FOUND");
